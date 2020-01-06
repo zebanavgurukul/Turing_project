@@ -21,6 +21,9 @@ app.use('/tax',tax)
 const shipping = require('./routes/shipping')
 app.use('/shipping',shipping)
 
+const shoppingcart = require('./routes/shoppingcart')
+app.use('/shoppingcart',shoppingcart)
+
 app.listen(6000, () => {
     console.log("6000 port pr shunta hai")
 });

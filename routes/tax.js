@@ -4,13 +4,13 @@ const taxDB  = require("../model/taxDB")
 
 // 1
 tax.get('/tax', (req,res) => {
-    var data = taxDB.selectData()
-    data.then((Response)=>{
-       res.json(Response)
-    }).catch((err)=>{
-       console.log(err)
-       res.send(err)
-    })
+   var data = taxDB.selectData()
+   data.then((Response)=>{
+      res.json(Response)
+   }).catch((err)=>{
+      console.log(err)
+      res.send(err)
+   })
 });
 
 // 2

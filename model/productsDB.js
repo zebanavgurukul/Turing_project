@@ -50,15 +50,8 @@ var select_reviews_product_id = (product_id) => {
     .where('product_review.product_id',product_id)
 }
 
-// var select_p_reviews_product_id = (req,res) => {
-//     var review_data = {
-//         product_id: req.body.product_id,
-//         review: req.body.review,
-//         rating: req.body.rating,
-//         name: req.body.name
-//     }
-//     return knex("product_review")
-//     .insert(review_data)
-// }
+var insertdata_review = (reviews)=>{
+    return knex('review').insert(reviews)
+}
 
-module.exports = {selectData, select_products_search, select_product_id, select_inCategory_category_id, select_inDepartment_department_id, select_details_product_id, select_locations_product_id, select_reviews_product_id}
+module.exports = {selectData, select_products_search, select_product_id, select_inCategory_category_id, select_inDepartment_department_id, select_details_product_id, select_locations_product_id, select_reviews_product_id, insertdata_review}
