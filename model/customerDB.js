@@ -1,6 +1,5 @@
 const knex = require('../knexFile');
 
-
 let putCustomer = (updata,customer_id)=>{
     return knex('customer').update(updata).where("customer_id",customer_id)
 }
@@ -19,7 +18,6 @@ let customers_login = (email) => {
 
 let else_login = (password)=>{
     return knex.select('password').from('customer').havingIn('customer.password',password)
-
 }
 
 let customers_address = (updata,customer_id)=>{

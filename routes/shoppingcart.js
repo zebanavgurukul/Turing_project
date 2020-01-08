@@ -1,7 +1,6 @@
 const express = require('express');
 const randomString = require('random-string');
 let generateUniqueId = randomString();
-// console.log(generateUniqueId)
 const shoppingcart = express.Router();
 const shoppingcartDB  = require("../model/shoppingcartDB")
 
@@ -52,21 +51,21 @@ shoppingcart.get('/shoppingcart/:id', (req,res) => {
 // 4
 shoppingcart.put("/shoppingcart/updata/:item_id",(req,res)=>{
    var item_id = req.params.item_id
+   shoppingcartDB.insertdata_updata(item_id)
    .then((data)=>{
-   let updata = {
-      item_id : data[0]['item_id'],
-      attributes : data[0]['attributes'],
-      quantity : data[0]['quantity'],
-      product_id : data[0]['product_id'],
-      price : data[0]['price'],
-      name : data[0]['name'],
-      subtotal : data[0]['price']*data[0]['quantity']
-   }
-   shoppingcartDB.insertdata_updata(updata,item_id)
-      return res.send(updata)
+      let updata = {
+         item_id : data[0]['item_id'],
+         attributes : data[0]['attributes'],
+         quantity : data[0]['quantity'],
+         product_id : data[0]['product_id'],
+         price : data[0]['price'],
+         name : data[0]['name'],
+         subtotal : data[0]['price']*data[0]['quantity']
+      }
+      res.json(updata)
    }).catch((err)=>{
-      console.log(err);
-   })
+      console.log(err)
+      res.send(err)
 });
 
 // 5
@@ -82,7 +81,15 @@ shoppingcart.delete('/shoppingcart_empty/:cart_id', (req,res) => {
 });
 
 // 6
-
+shoppingcart.delete('/shoppingcart_moveToCart/:item_id', (req,res) => {
+   var item_id = req.params.item_id
+   var data = shoppingcartDB.moveToCart_item_id(item_id)
+   data.then((Response)=>{
+      res.send(Response)
+   }).catch((err)=>{
+      res.send(err)
+   })
+});
 
 // 7
 shoppingcart.get('/shoppingcart/totalAmount/:cart_id', (req,res) => {
@@ -100,11 +107,21 @@ shoppingcart.get('/shoppingcart/totalAmount/:cart_id', (req,res) => {
 });
 
 // 8
-shoppingcart.get('/shoppingcart_saveForLater/:item_id', (req,res) => {
-   let item_ID = req.params.item_id
-
+shoppingcart.get("/saveForLater/:id",(req,res)=>{
+   var item_id = req.params.id;
+   var getData = shoppingcartDB.saveForLater_item_id(item_id)
+   getData.then((data)=>{
+      var inserted = shoppingcartDB.saveForLater(data)
+      inserted.then((resp)=>{
+         var deleted = shoppingcartDB.save(item_id)
+         deleted.then((resps)=>{
+            res.send("Deleted...")
+         })
+      })
+   }).catch((err)=>{
+      res.send(err)
+   })
 });
-
 // 9
 shoppingcart.get('/shoppingcart_getSaved/:cart_id', (req,res) => {
    var cart_id = req.params.cart_id
@@ -118,7 +135,7 @@ shoppingcart.get('/shoppingcart_getSaved/:cart_id', (req,res) => {
 });
 
 // 10
-shoppingcart.delete('/shoppingcart/removeProduct/:item_id', (req,res) => {
+shoppingcart.delete('/shoppingcart_removeProduct/:item_id', (req,res) => {
    var item_id = req.params.item_id
    var data = shoppingcartDB.removeProduct_item_id(item_id)
    data.then((Response)=>{
@@ -127,6 +144,7 @@ shoppingcart.delete('/shoppingcart/removeProduct/:item_id', (req,res) => {
       console.log(err)
       res.send(err)
    })
+})
 });
 
 module.exports = shoppingcart
