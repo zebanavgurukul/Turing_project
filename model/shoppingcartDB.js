@@ -30,8 +30,16 @@ let shoppingcart_empty = (cart_id) => {
 
 // 6
 let moveToCart_item_id = (item_id) => {
-    return knex('saveForLater').where('item_id',item_id).del()
-}
+    return knex('saveForLater').where("item_id",item_id)
+};
+
+let moveToCart = (updataData) => {
+    return knex('save_item').insert(updataData)
+};
+
+let moveToCartsave = (item_id) => {
+    return knex('saveForLater').where('saveForLater.item_id',item_id).del()
+};
 
 // 7
 let totalAmount_cart_id = (cart_id) => {
@@ -48,11 +56,11 @@ let saveForLater_item_id = (item_id) => {
 
 let saveForLater = (updataData) => {
     return knex('saveForLater').insert(updataData)
-}
+};
 
 let save = (item_id) => {
     return knex('shopping_cart').where('shopping_cart.item_id',item_id).del()
-}
+};
 
 // 9
 let getSaved_cart_id = (cart_id) => {
@@ -65,7 +73,8 @@ let getSaved_cart_id = (cart_id) => {
 // 10
 let removeProduct_item_id = (item_id) => {
     return knex('shopping_cart').where('item_id',item_id).del()
-}
+};
+
 module.exports = {shoppingcart, 
     insertdata_updata, 
     shoppingcart_empty, 
@@ -77,4 +86,6 @@ module.exports = {shoppingcart,
     shoppingcart_generateUniqueId,
     saveForLater,
     save,
-    moveToCart_item_id}
+    moveToCart_item_id,
+    moveToCart,
+    moveToCartsave}

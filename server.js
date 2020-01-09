@@ -27,6 +27,9 @@ app.use('/shoppingcart',shoppingcart)
 const customer = require('./routes/customer')
 app.use('/customer', customer)
 
+const orders = require ('./routes/orders')
+app.use('/orders',orders)
+
 app.listen(6001, () => {
     console.log("6001 port pr shunta hai")
 });

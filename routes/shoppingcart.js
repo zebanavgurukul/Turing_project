@@ -81,11 +81,17 @@ shoppingcart.delete('/shoppingcart_empty/:cart_id', (req,res) => {
 });
 
 // 6
-shoppingcart.delete('/shoppingcart_moveToCart/:item_id', (req,res) => {
-   var item_id = req.params.item_id
-   var data = shoppingcartDB.moveToCart_item_id(item_id)
-   data.then((Response)=>{
-      res.send(Response)
+shoppingcart.get("/shoppingcart/moveToCart/:item_id",(req,res)=>{
+   var item_id = req.params.item_id;
+   var getData = shoppingcartDB.moveToCart_item_id(item_id)
+   getData.then((data)=>{
+      var inserted = shoppingcartDB.moveToCart(data)
+      inserted.then((resp)=>{
+         var deleted = shoppingcartDB.moveToCartsave(item_id)
+         deleted.then((resps)=>{
+            res.send("Deleted...")
+         })
+      })
    }).catch((err)=>{
       res.send(err)
    })
@@ -107,8 +113,8 @@ shoppingcart.get('/shoppingcart/totalAmount/:cart_id', (req,res) => {
 });
 
 // 8
-shoppingcart.get("/saveForLater/:id",(req,res)=>{
-   var item_id = req.params.id;
+shoppingcart.get("/saveForLater/:item_id",(req,res)=>{
+   var item_id = req.params.item_id;
    var getData = shoppingcartDB.saveForLater_item_id(item_id)
    getData.then((data)=>{
       var inserted = shoppingcartDB.saveForLater(data)
@@ -122,6 +128,7 @@ shoppingcart.get("/saveForLater/:id",(req,res)=>{
       res.send(err)
    })
 });
+
 // 9
 shoppingcart.get('/shoppingcart_getSaved/:cart_id', (req,res) => {
    var cart_id = req.params.cart_id
