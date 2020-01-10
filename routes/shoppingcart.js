@@ -62,10 +62,11 @@ shoppingcart.put("/shoppingcart/updata/:item_id",(req,res)=>{
          name : data[0]['name'],
          subtotal : data[0]['price']*data[0]['quantity']
       }
-      res.json(updata)
+      res.send(updata)
    }).catch((err)=>{
       console.log(err)
       res.send(err)
+   })
 });
 
 // 5
@@ -85,8 +86,16 @@ shoppingcart.get("/shoppingcart/moveToCart/:item_id",(req,res)=>{
    var item_id = req.params.item_id;
    var getData = shoppingcartDB.moveToCart_item_id(item_id)
    getData.then((data)=>{
-      var inserted = shoppingcartDB.moveToCart(data)
-      inserted.then((resp)=>{
+   let updataData = {
+      item_id : data[0]['item_id'],
+      cart_id : data[0]['cart_id'],
+      product_id : data[0]['product_id'],
+      buy_now : data[0]['buy_now'],
+      attributes : data[0]['attributes'],
+      quantity : data[0]['quantity'],
+   }
+   var inserted = shoppingcartDB.moveToCart(updataData)
+   inserted.then((resp)=>{
          var deleted = shoppingcartDB.moveToCartsave(item_id)
          deleted.then((resps)=>{
             res.send("Deleted...")
@@ -117,8 +126,16 @@ shoppingcart.get("/saveForLater/:item_id",(req,res)=>{
    var item_id = req.params.item_id;
    var getData = shoppingcartDB.saveForLater_item_id(item_id)
    getData.then((data)=>{
-      var inserted = shoppingcartDB.saveForLater(data)
-      inserted.then((resp)=>{
+   let updataData = {
+      item_id : data[0]['item_id'],
+      cart_id : data[0]['cart_id'],
+      product_id : data[0]['product_id'],
+      buy_now : data[0]['buy_now'],
+      attributes : data[0]['attributes'],
+      quantity : data[0]['quantity'],
+   }
+   var inserted = shoppingcartDB.saveForLater(updataData)
+   inserted.then((resp)=>{
          var deleted = shoppingcartDB.save(item_id)
          deleted.then((resps)=>{
             res.send("Deleted...")
@@ -152,6 +169,5 @@ shoppingcart.delete('/shoppingcart_removeProduct/:item_id', (req,res) => {
       res.send(err)
    })
 })
-});
 
 module.exports = shoppingcart
