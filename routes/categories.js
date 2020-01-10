@@ -2,6 +2,7 @@ const express = require('express');
 const categories = express.Router();
 const categoriesDB  = require("../model/categoriesDB")
 
+// 1
 categories.get('/categories', (req,res) => {
     var data = categoriesDB.selectData()
     data.then((Response)=>{

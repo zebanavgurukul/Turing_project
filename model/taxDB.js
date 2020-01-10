@@ -1,13 +1,15 @@
-const knex = require('../knexFile');
+const knex = require("../knexFile");
 
+// 1
 var selectData  = () => {
-    return knex.select('*').from('tax')
-}
+    return knex.select("*").from('tax')
+};
 
-var selectby_id  = (id) => {
+// 2
+var selectby_id  = (tax_id) => {
     return knex.select("*")
-    .from('tax')
-    .where('tax.tax_id', id)
-}
+    .from("tax")
+    .where("tax.tax_id", tax_id)
+};
 
 module.exports = {selectData, selectby_id}

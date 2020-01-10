@@ -11,7 +11,7 @@ departments.get('/department', (req,res) => {
        console.log(err)
        res.send(err)
     })
-})
+});
 
 // 2
 departments.get('/departments/:id', (req,res) => {

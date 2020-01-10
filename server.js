@@ -31,5 +31,5 @@ const shipping = require('./routes/shipping')
 app.use('/shipping',shipping)
 
 app.listen(6000, () => {
-    console.log("6000 port pr shunta hai")
+    console.log("server is listening 6000.........")
 });
