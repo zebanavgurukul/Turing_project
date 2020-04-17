@@ -1,5 +1,5 @@
 const express = require("express");
-const tax = express.Router();
+const tax = express();
 const taxDB  = require("../model/taxDB")
 
 // 1

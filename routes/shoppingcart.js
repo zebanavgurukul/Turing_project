@@ -1,7 +1,7 @@
 const express = require('express');
 const randomString = require('random-string');
 let generateUniqueId = randomString();
-const shoppingcart = express.Router();
+const shoppingcart = express();
 const shoppingcartDB  = require("../model/shoppingcartDB")
 
 // 1
