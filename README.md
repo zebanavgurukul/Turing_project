@@ -21,3 +21,4 @@ MVC(Model view Controler)
 3) Jwt(Json Web Token)
 4) Reandom String
 5) Body Parser
+6) knex
