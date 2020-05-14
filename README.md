@@ -12,7 +12,7 @@ after that i just converted sql into mysql database and i started to make this p
 
 ### In this project i used 
  
- MVC(Model view Controler)
+  MVC(Model view Controler)
 
 ### In this project i used node.js
 
